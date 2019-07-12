@@ -23,7 +23,7 @@ const { DateScalar } = require("../custom-types");
 
 module.exports = app => {
   return {
-    Date: DateScalar,
+    // Date: DateScalar,
 
     Query: {
       viewer() {
@@ -43,6 +43,7 @@ module.exports = app => {
          */
         return null;
       },
+
       async user(parent, { id }, { pgResource }, info) {
         try {
           const user = await pgResource.getUserById(id);
@@ -51,15 +52,22 @@ module.exports = app => {
           throw new ApolloError(error);
         }
       },
-      async items() {
-        // @TODO: Replace this mock return statement with the correct items from Postgres
-        return [];
-        // -------------------------------
+      async items(parent, { filter }, { pgResource }, info) {
+        try {
+          const item = await pgResource.getItems(filter);
+          return item;
+        } catch (error) {
+          throw new ApolloError(error);
+        }
       },
-      async tags() {
+      async tags(parent, { args }, { pgResource }, info) {
         // @TODO: Replace this mock return sta tement with the correct tags from Postgres
-        return [];
-        // -------------------------------
+        try {
+          const tag = await pgResource.getTags(args);
+          return tag;
+        } catch (error) {
+          throw new ApolloError(error);
+        }
       }
     },
 
