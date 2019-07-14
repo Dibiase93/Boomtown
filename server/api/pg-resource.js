@@ -60,7 +60,6 @@ module.exports = postgres => {
       } catch (e) {
         throw "User can't be found";
       }
-      // -------------------------------
     },
     async getItems(idToOmit) {
       console.log(idToOmit);
