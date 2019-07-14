@@ -1,18 +1,21 @@
-function tagsQueryString(tags, itemid, result) {
+function tagsQueryString(tags, itemid) {
   /**
    * Challenge:
    * This function is more than a little complicated.
    *  - Can you refactor it to be simpler / more readable?
    */
-  const length = tags.length;
-  return length === 0
-    ? `${result};`
-    : tags.shift() &&
-        tagsQueryString(
-          tags,
-          itemid,
-          `${result}($${tags.length + 1}, ${itemid})${length === 1 ? "" : ","}`
-        );
+  const parts = tags.map((tag, i) => `($${i + 1}, ${itemId})`);
+  return parts.join(",") + "i";
+
+  // const length = tags.length;
+  // return length === 0;
+  // ? `${result};`
+  // : tags.shift() &&
+  //     tagsQueryString(
+  //       tags,
+  //       itemid,
+  //       `${result}($${tags.length + 1}, ${itemid})${length === 1 ? "" : ","}`
+  //     );
 }
 
 module.exports = postgres => {
@@ -141,6 +144,13 @@ module.exports = postgres => {
               // Generate new Item query
               // @TODO
               // -------------------------------
+
+             async newItem = await postgres.queries({
+               text:`INSERT INTO items (id, title, image, description, ownerid)
+                `,
+               values: [$1 + 1, "String!", null, "String!", [id]]
+               
+             });
 
               // Insert new Item
               // @TODO
