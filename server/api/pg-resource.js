@@ -52,7 +52,7 @@ module.exports = postgres => {
     async getUserById(id) {
       const findUserQuery = {
         text: "SELECT * FROM users WHERE id = $1 LIMIT 1;", // @TODO: Basic queries
-        values: [id]
+        values: [id] //
       };
       try {
         const user = await postgres.query(findUserQuery);

@@ -134,7 +134,7 @@ module.exports = app => {
     Mutation: {
       // @TODO: Uncomment this later when we add auth
       // ...authMutations(app),
-      // -------------------------------
+      // --------------------------------
 
       async addItem(parent, args, context, info) {
         /**
