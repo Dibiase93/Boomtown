@@ -50,26 +50,6 @@ module.exports = postgres => {
       }
     },
     async getUserById(id) {
-      /**
-       *  @TODO: Handling Server Errors
-       *
-       *  Inside of our resource methods we get to determine when and how errors are returned
-       *  to our resolvers using try / catch / throw semantics.
-       *
-       *  Ideally, the errors that we'll throw from our resource should be able to be used by the client
-       *  to display user feedback. This means we'll be catching errors and throwing new ones.
-       *
-       *  Errors thrown from our resource will be captured and returned from our resolvers.
-       *
-       *  This will be the basic logic for this resource method:
-       *  1) Query for the user using the given id. If no user is found throw an error.
-       *  2) If there is an error with the query (500) throw an error.
-       *  3) If the user is found and there are no errors, return only the id, email, fullname, bio fields.
-       *     -- this is important, don't return the password!
-       *
-       *  You'll need to complete the query first before attempting this exercise.
-       */
-
       const findUserQuery = {
         text: "SELECT * FROM users WHERE id = $1 LIMIT 1;", // @TODO: Basic queries
         values: [id]
@@ -85,12 +65,6 @@ module.exports = postgres => {
     async getItems(idToOmit) {
       console.log(idToOmit);
       const items = await postgres.query({
-        /**
-         *  @TODO:
-         *
-         *  idToOmit = ownerId
-         */
-
         text: `SELECT * FROM items WHERE ownerid != $1;`,
         values: idToOmit ? [idToOmit] : []
       }); //done
@@ -98,22 +72,20 @@ module.exports = postgres => {
     },
     async getItemsForUser(id) {
       const items = await postgres.query({
-        /**
-         *  @TODO:
-         *  Get all Items for user using their id
-         */
-        text: ``,
+        text: `SELECT *
+        FROM items
+        WHERE ownerid = $1
+        `,
         values: [id]
       });
       return items.rows;
     },
     async getBorrowedItemsForUser(id) {
       const items = await postgres.query({
-        /**
-         *  @TODO:
-         *  Get all Items borrowed by user using their id
-         */
-        text: ``,
+        text: `SELECT * 
+        FROM items
+        WHERE borrowerid = $1
+        `,
         values: [id]
       });
       return items.rows;
@@ -124,11 +96,11 @@ module.exports = postgres => {
     },
     async getTagsForItem(id) {
       const tagsQuery = {
-        text: `select * 
+        text: `SELECT * 
         FROM tags 
         INNER JOIN itemtags
-        ON tag.id = itemstags.tagid
-        WHERE items_tag.itemid= $1`, // @TODO: Advanced query Hint: use INNER JOIN
+        ON tags.id = itemtags.tagid
+        WHERE itemtags.itemid= $1`, // @TODO: Advanced query Hint: use INNER JOIN
         values: [id]
       };
 
