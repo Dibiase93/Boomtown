@@ -1,5 +1,7 @@
 # Boomtown 🏙
 
+## Server
+
 First half of Boomtown project, this project was based off building a server containing that database for our App.
 
 ### Learning Curve
@@ -19,11 +21,9 @@ values: tagId
 });
 ```
 
-## Server
+### Installation Instructions
 
 Commands must be run from the `server` directory:
-
-### Installation Instructions
 
 ```bash
 npm install
