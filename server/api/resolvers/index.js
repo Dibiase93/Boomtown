@@ -139,7 +139,7 @@ module.exports = app => {
           user = 1;
           const newItem = await context.pgResource.saveNewItem({
             item: args.item,
-            image: args.image,
+            image: undefined,
             user
           });
           return newItem;

@@ -65,12 +65,15 @@ module.exports = postgres => {
       }
     },
     async getItems(idToOmit) {
-      console.log(idToOmit);
       const items = await postgres.query({
         text: `SELECT * FROM items WHERE ownerid != $1;`,
         values: idToOmit ? [idToOmit] : []
       }); //done
-      return items.rows;
+      try {
+        return items.rows;
+      } catch (e) {
+        throw "Items can't be found";
+      }
     },
     async getItemsForUser(id) {
       const items = await postgres.query({
@@ -137,17 +140,16 @@ module.exports = postgres => {
          */
         postgres.connect((err, client, done) => {
           try {
-            // Begin postgres transaction
             client.query("BEGIN", async err => {
               const { title, description, tags } = item;
 
-              const newItemInput = await postgres.query({
-                text: `INSERT INTO items (id, title, image, description, ownerid)
+              const newItem = await postgres.query({
+                text: `INSERT INTO items ( title, description, ownerid)
+                VALUES ($1, $2, $3)
                 RETURNING *
                    `,
-                values: [$1, $2, $3, $4]
+                values: [title, description, ownerid]
               });
-              return newItemInput;
 
               // Generate new Item query
               // @TODO
@@ -156,6 +158,16 @@ module.exports = postgres => {
               // Insert new Item
               // @TODO
               // -------------------------------
+              const itemId = newItem.rows[0].id;
+              const tagId = tags.map(tag => tag.id);
+
+              const itemTags = await postgres.query({
+                text: `INSERT INTO itemtags (tagid, itemid)
+                VALUES ${tagsQueryString(tags, itemId, " ")}`,
+                values: tagId
+              });
+
+              const newItemTag = await postgres.query(itemTags);
 
               // Generate tag relationships query (use the'tagsQueryString' helper function provided)
               // @TODO
@@ -173,7 +185,7 @@ module.exports = postgres => {
                 // release the client back to the pool
                 done();
                 // Uncomment this resolve statement when you're ready!
-                // resolve(newItem.rows[0])
+                resolve(newItem.rows[0]);
                 // -------------------------------
               });
             });
