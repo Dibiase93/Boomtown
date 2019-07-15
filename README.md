@@ -2,15 +2,15 @@
 
 ## Server
 
-First half of Boomtown project, this project was based off building a server containing that database for our App.
+First half of Boomtown project, this project was based off building a server containing the database for our App.
 
 ### Learning Curve
 
-This project was a very good challenge. I got a chance to learn how the database was built on server side. This project also gave me a good chance to further improve writing JavaScript functions.
+This project was a very good challenge, where I got a chance to learn how database's are built on the server side. This project also gave me a good chance to further improve writing JavaScript functions.
 
 #### Challenges
 
-My biggest challenge was writing the functions on the pg-resource.js file which converted the Postgres data into workable JavaScript data.
+My biggest challenge was writing functions on the pg-resource.js file which converted the Postgres data into workable JavaScript data. Specifically the newItemTag function where we had to connect newly added tags to newly added items.
 
 EG.
 
