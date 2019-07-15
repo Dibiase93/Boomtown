@@ -1,11 +1,11 @@
-function tagsQueryString(tags, itemid) {
+function tagsQueryString(tags, itemId) {
   /**
    * Challenge:
    * This function is more than a little complicated.
    *  - Can you refactor it to be simpler / more readable?
    */
   const parts = tags.map((tag, i) => `($${i + 1}, ${itemId})`);
-  return parts.join(",") + "i";
+  return parts.join(",") + ";";
 
   // const length = tags.length;
   // return length === 0;
@@ -83,7 +83,11 @@ module.exports = postgres => {
         `,
         values: [id]
       });
-      return items.rows;
+      try {
+        return items.rows;
+      } catch (e) {
+        throw "Items can't be found";
+      }
     },
     async getBorrowedItemsForUser(id) {
       const items = await postgres.query({
@@ -93,11 +97,19 @@ module.exports = postgres => {
         `,
         values: [id]
       });
-      return items.rows;
+      try {
+        return items.rows;
+      } catch (e) {
+        throw "Items can't be found";
+      }
     },
     async getTags() {
       const tags = await postgres.query(`select * from tags`);
-      return tags.rows;
+      try {
+        return tags.rows;
+      } catch (e) {
+        throw "Tags can't be found";
+      }
     },
     async getTagsForItem(id) {
       const tagsQuery = {
@@ -108,9 +120,12 @@ module.exports = postgres => {
         WHERE itemtags.itemid= $1`, // @TODO: Advanced query Hint: use INNER JOIN
         values: [id]
       };
-
-      const tags = await postgres.query(tagsQuery);
-      return tags.rows;
+      try {
+        const tags = await postgres.query(tagsQuery);
+        return tags.rows;
+      } catch (e) {
+        throw "Tags can't be found";
+      }
     },
     async saveNewItem({ item, user }) {
       /**
@@ -146,9 +161,8 @@ module.exports = postgres => {
               const newItem = await postgres.query({
                 text: `INSERT INTO items ( title, description, ownerid)
                 VALUES ($1, $2, $3)
-                RETURNING *
-                   `,
-                values: [title, description, ownerid]
+                RETURNING *`,
+                values: [title, description, user]
               });
 
               // Generate new Item query
@@ -160,14 +174,14 @@ module.exports = postgres => {
               // -------------------------------
               const itemId = newItem.rows[0].id;
               const tagId = tags.map(tag => tag.id);
+              console.log(itemId);
+              console.log(tagId);
 
-              const itemTags = await postgres.query({
+              const newItemTag = await postgres.query({
                 text: `INSERT INTO itemtags (tagid, itemid)
-                VALUES ${tagsQueryString(tags, itemId, " ")}`,
+                VALUES ${tagsQueryString([tags], itemId)}`,
                 values: tagId
               });
-
-              const newItemTag = await postgres.query(itemTags);
 
               // Generate tag relationships query (use the'tagsQueryString' helper function provided)
               // @TODO
@@ -182,20 +196,15 @@ module.exports = postgres => {
                 if (err) {
                   throw err;
                 }
-                // release the client back to the pool
                 done();
-                // Uncomment this resolve statement when you're ready!
                 resolve(newItem.rows[0]);
-                // -------------------------------
               });
             });
           } catch (e) {
-            // Something went wrong
             client.query("ROLLBACK", err => {
               if (err) {
                 throw err;
               }
-              // release the client back to the pool
               done();
             });
             switch (true) {
