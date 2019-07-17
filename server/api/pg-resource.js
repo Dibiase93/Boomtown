@@ -89,7 +89,7 @@ module.exports = postgres => {
       }
     },
     async getTags() {
-      const tags = await postgres.query(`select * from tags`);
+      const tags = await postgres.query(`SELECT * FROM tags`);
       try {
         return tags.rows;
       } catch (e) {
