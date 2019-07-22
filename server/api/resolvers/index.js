@@ -39,16 +39,16 @@ module.exports = app => {
       },
       async items(parent, { filter }, { pgResource }, info) {
         try {
-          const item = await pgResource.getItems(filter);
-          return item;
+          const items = await pgResource.getItems(filter);
+          return items;
         } catch (error) {
           throw new ApolloError(error);
         }
       },
       async tags(parent, { args }, { pgResource }, info) {
         try {
-          const tag = await pgResource.getTags(args);
-          return tag;
+          const tags = await pgResource.getTags(args);
+          return tags;
         } catch (error) {
           throw new ApolloError(error);
         }

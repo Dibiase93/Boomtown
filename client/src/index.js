@@ -4,13 +4,14 @@ import { MuiThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 // @TODO: Uncomment each module as needed in your client app
 import { ApolloProvider } from "react-apollo";
-// import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter } from "react-router-dom";
 // import { Provider as ReduxProvider } from 'react-redux'
 // -------------------------------
 
 import registerServiceWorker from "./registerServiceWorker";
 import theme from "./theme";
 import client from "./apollo";
+import AppRoutes from "./routes";
 /**
  * @TODO: Initialize Apollo Client
  * Below in your <App />, wrap your pages in an <ApolloProvider /> component
@@ -52,10 +53,8 @@ import client from "./apollo";
  */
 
 // @TODO: Remove this import once you have your router working below
-import Home from "./pages/Home";
-import Items from "./pages/Items";
-// -------------------------------
 
+// -------------------------------
 import "./index.css";
 
 const App = () => {
@@ -63,8 +62,9 @@ const App = () => {
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
       <ApolloProvider client={client}>
-        {/* <Home /> */}
-        <Items />
+        <BrowserRouter>
+          <AppRoutes />
+        </BrowserRouter>
       </ApolloProvider>
     </MuiThemeProvider>
   );
