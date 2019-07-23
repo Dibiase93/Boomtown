@@ -10,13 +10,12 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Gravatar from "react-gravatar";
 import styles from "./styles";
+import Moment from "react-moment";
+import { typography } from "@material-ui/system";
 
 function ItemCard({ item, classes }) {
   const { id, title, imageurl, description, itemowner, created } = item;
-  console.log(description);
   console.log(item);
-  console.log(title);
-  console.log(imageurl);
 
   return (
     <Card>
@@ -28,14 +27,18 @@ function ItemCard({ item, classes }) {
           image={imageurl}
           title="{title}"
         />
+        <div className={classes.UserContainer}>
+          <Gravatar
+            email={itemowner.email}
+            size={75}
+            rating="pg"
+            default="monsterid"
+            className={classes.CustomAvatarImage}
+          />
+          <p>{itemowner.fullname}</p>
 
-        <Gravatar
-          email={itemowner.email}
-          size={75}
-          rating="pg"
-          default="monsterid"
-          className={classes.CustomAvatarImage}
-        />
+          <Moment toNow={created} />
+        </div>
 
         <CardHeader title={title} />
         <CardContent>
