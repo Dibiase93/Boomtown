@@ -28,12 +28,7 @@ const initialState = {
 };
 
 //reducer
-export default (
-  state = {
-    initialState
-  },
-  action
-) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_ITEM: {
       return {
@@ -56,7 +51,7 @@ export default (
     }
 
     default: {
-      return initialState;
+      return state;
     }
   }
 };

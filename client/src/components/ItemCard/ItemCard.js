@@ -15,7 +15,7 @@ import { typography } from "@material-ui/system";
 
 function ItemCard({ item, classes }) {
   const { id, title, imageurl, description, itemowner, created } = item;
-  console.log(item);
+  //   console.log(item);
 
   return (
     <Card>
@@ -28,14 +28,14 @@ function ItemCard({ item, classes }) {
           title="{title}"
         />
         <div className={classes.UserContainer}>
-          <Gravatar
-            email={itemowner.email}
+          {/* <Gravatar
+            email={itemowner && itemowner.email}
             size={75}
             rating="pg"
             default="monsterid"
             className={classes.CustomAvatarImage}
-          />
-          <p>{itemowner.fullname}</p>
+          /> */}
+          <p>{itemowner && itemowner.fullname}</p>
 
           <Moment toNow={created} />
         </div>

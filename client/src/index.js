@@ -13,6 +13,7 @@ import theme from "./theme";
 import client from "./apollo";
 import AppRoutes from "./routes";
 import store from "./redux";
+import { ViewerProvider } from "./context/ViewerProvider";
 /**
  * @TODO: Initialize Apollo Client
  * Below in your <App />, wrap your pages in an <ApolloProvider /> component
@@ -64,9 +65,11 @@ const App = () => {
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
         <ApolloProvider client={client}>
-          <BrowserRouter>
-            <AppRoutes />
-          </BrowserRouter>
+          <ViewerProvider>
+            <BrowserRouter>
+              <AppRoutes />
+            </BrowserRouter>
+          </ViewerProvider>
         </ApolloProvider>
       </MuiThemeProvider>
     </ReduxProvider>
