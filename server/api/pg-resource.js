@@ -23,12 +23,13 @@ module.exports = postgres => {
             throw "An account with this email already exists.";
           default:
             throw e.message;
+            setus;
         }
       }
     },
     async getUserAndPasswordForVerification(email) {
       const findUserQuery = {
-        text: "", // @TODO: Authentication - Server
+        text: "SELECT * FROM users WHERE email = $1;",
         values: [email]
       };
       try {

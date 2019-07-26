@@ -7,7 +7,7 @@ export default function ItemGrid({ items }) {
     <div>
       <Grid container justify="center" className="itemsPage" spacing={2}>
         {items.map(item => (
-          <Grid key={item.id} item xs={4}>
+          <Grid key={item.id} justify="center" item xs={4}>
             <ItemCard item={item} />
           </Grid>
         ))}

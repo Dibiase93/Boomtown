@@ -54,27 +54,20 @@ module.exports = app => {
         const user = await context.pgResource.getUserAndPasswordForVerification(
           args.user.email
         );
+        if (user) {
+          const valid = await bcrypt.compare(args.user.password, user.password);
 
-        /**
-         *  @TODO: Authentication - Server
-         *
-         *  To verify the user has provided the correct password, we'll use the provided password
-         *  they submitted from the login form to decrypt the 'hashed' version stored in out database.
-         */
-        // Use bcrypt to compare the provided password to 'hashed' password stored in your database.
-        const valid = false;
-        // -------------------------------
-        if (!valid || !user) throw "User was not found.";
+          if (!valid || !user) throw "User was not found.";
 
-        setCookie({
-          tokenName: app.get("JWT_COOKIE_NAME"),
-          token: generateToken(user, app.get("JWT_SECRET")),
-          res: context.req.res
-        });
-
-        return {
-          id: user.id
-        };
+          setCookie({
+            tokenName: app.get("JWT_COOKIE_NAME"),
+            token: generateToken(user, app.get("JWT_SECRET")),
+            res: context.req.res
+          });
+          return {
+            id: user.id
+          };
+        }
       } catch (e) {
         throw new AuthenticationError(e);
       }

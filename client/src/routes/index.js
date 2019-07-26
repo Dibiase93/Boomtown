@@ -17,7 +17,7 @@ export default () => (
         return (
           <Switch>
             <Route path="/welcome" component={HomeContainer} exact />
-            <Redirect path="*" to="welcome" />
+            <Redirect path="*" to="/welcome" />
           </Switch>
         );
       }
@@ -25,11 +25,24 @@ export default () => (
         <Fragment>
           <MenuBar />
           <Switch>
-            <PRoute path="/welcome" component={HomeContainer} exact />
-            <PRoute path="/items" component={ItemsContainer} exact />
-            <PRoute path="/profile" exact component={ProfileContainer} />
-            <PRoute path="/profile/:userid" component={ProfileContainer} />
-            <PRoute path="/share" component={ShareContainer} />
+            <PRoute
+              path="/items"
+              name="items"
+              component={ItemsContainer}
+              exact
+            />
+            <PRoute
+              path="/profile"
+              name="profile"
+              exact
+              component={ProfileContainer}
+            />
+            <PRoute
+              path="/profile/:userid"
+              name="profile"
+              component={ProfileContainer}
+            />
+            <PRoute path="/share" name="share" component={ShareContainer} />
             <Redirect path="*" to="/items" component={ItemsContainer} />
           </Switch>
         </Fragment>

@@ -1,22 +1,23 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "./styles";
-import { ViewerContext } from "../../context/ViewerProvider";
-import UserCard from "../../components/UserCard";
+import ItemGrid from "../../components/ItemGrid";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
 
-const Profile = ({ classes }) => {
+const Profile = ({ classes, user }) => {
   return (
-    <ViewerContext.Consumer>
-      {({ viewer }) => (
-        <div>
-          <p>
-            {console.log(viewer)}
-            <UserCard />; This is the profile page located at{" "}
-            <code>/profile/:userId</code>.
-          </p>
-        </div>
-      )}
-    </ViewerContext.Consumer>
+    <Paper className={classes.root}>
+      <ItemGrid>
+        <Typography variant="h5" component="h3">
+          This is a sheet of paper.
+        </Typography>
+        <Typography component="p">
+          Paper can be used to build surface or other elements for your
+          application.
+        </Typography>
+      </ItemGrid>
+    </Paper>
   );
 };
 

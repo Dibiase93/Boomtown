@@ -38,6 +38,7 @@ function ItemCard({ item, classes }) {
           <p>{itemowner && itemowner.fullname}</p>
 
           <Moment toNow={created} />
+          {console.log(created)}
         </div>
 
         <CardHeader title={title} />

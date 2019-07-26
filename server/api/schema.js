@@ -54,8 +54,6 @@ module.exports = gql`
     tags: [Tag]
   }
 
-  directive @auth on FIELD_DEFINITION
-
   input SignupInput {
     fullname: String!
     email: String!
