@@ -28,13 +28,13 @@ function ItemCard({ item, classes }) {
           title="{title}"
         />
         <div className={classes.UserContainer}>
-          {/* <Gravatar
+          <Gravatar
             email={itemowner && itemowner.email}
             size={75}
             rating="pg"
             default="monsterid"
             className={classes.CustomAvatarImage}
-          /> */}
+          />
           <p>{itemowner && itemowner.fullname}</p>
 
           <Moment toNow={created} />

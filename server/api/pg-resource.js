@@ -7,9 +7,11 @@ module.exports = postgres => {
   return {
     async createUser({ fullname, email, password }) {
       const newUserInsert = {
-        text: "", // @TODO: Authentication - Server
+        text:
+          "INSERT INTO users (fullname, email, password) VALUES ($1, $2, $3) RETURNING *",
         values: [fullname, email, password]
       };
+      console.log(newUserInsert);
       try {
         const user = await postgres.query(newUserInsert);
         return user.rows[0];
@@ -20,7 +22,7 @@ module.exports = postgres => {
           case /users_email_key/.test(e.message):
             throw "An account with this email already exists.";
           default:
-            throw "There was a problem creating your account.";
+            throw e.message;
         }
       }
     },
@@ -39,8 +41,8 @@ module.exports = postgres => {
     },
     async getUserById(id) {
       const findUserQuery = {
-        text: "SELECT * FROM users WHERE id = $1 LIMIT 1;", // @TODO: Basic queries
-        values: [id] //
+        text: "SELECT * FROM users WHERE id = $1 LIMIT 1;",
+        values: [id]
       };
       try {
         const user = await postgres.query(findUserQuery);
@@ -53,7 +55,7 @@ module.exports = postgres => {
       const items = await postgres.query({
         text: `SELECT * FROM items WHERE ownerid != $1;`,
         values: idToOmit ? [idToOmit] : []
-      }); //done
+      });
       try {
         return items.rows;
       } catch (e) {

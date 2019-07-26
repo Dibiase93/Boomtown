@@ -54,7 +54,23 @@ module.exports = gql`
     tags: [Tag]
   }
 
+  directive @auth on FIELD_DEFINITION
+
+  input SignupInput {
+    fullname: String!
+    email: String!
+    password: String!
+  }
+
+  input LoginInput {
+    email: String!
+    password: String!
+  }
+
   type Mutation {
+    login(user: LoginInput!): User!
+    logout: Boolean!
+    signup(user: SignupInput!): User!
     addItem(item: NewItemInput!): Item
   }
 `;
