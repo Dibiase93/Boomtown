@@ -91,6 +91,8 @@ export const VIEWER_QUERY = gql`
     viewer {
       id
       email
+      fullname
+      bio
     }
   }
 `;

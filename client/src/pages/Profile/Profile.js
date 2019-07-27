@@ -8,15 +8,14 @@ import Typography from "@material-ui/core/Typography";
 const Profile = ({ classes, user }) => {
   return (
     <Paper className={classes.root}>
-      <ItemGrid>
-        <Typography variant="h5" component="h3">
-          This is a sheet of paper.
-        </Typography>
-        <Typography component="p">
-          Paper can be used to build surface or other elements for your
-          application.
-        </Typography>
-      </ItemGrid>
+      <Typography variant="h5" component="h3">
+        This is a sheet of paper.
+      </Typography>
+      <Typography component="p">
+        Paper can be used to build surface or other elements for your
+        application.
+      </Typography>
+      {user.items && <ItemGrid items={user.items} />}
     </Paper>
   );
 };

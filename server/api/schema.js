@@ -1,17 +1,15 @@
 const { gql } = require("apollo-server-express");
 
-/**
- *  @TODO: Boomtown Schema
- *
- * Define the types in your GraphQL schema here.
- * For each type, remove the `_: Boolean` placeholder and add the
- * fields as directed. Be sure to finish writing resolvers for all types
- * and any relational fields, where required.
- *
- * We will create the custom Date scalar together.
- */
 module.exports = gql`
-  type Item {
+  scalar Date
+
+  enum Role {
+    VIEWER
+  }
+
+  directive @auth(requires: Role = VIEWER) on OBJECT | FIELD_DEFINITION
+
+  type Item @auth(requires: VIEWER) {
     id: ID!
     title: String!
     imageurl: String
@@ -22,7 +20,7 @@ module.exports = gql`
     borrower: User
   }
 
-  type User {
+  type User @auth(requires: VIEWER) {
     id: ID!
     email: String!
     fullname: String!

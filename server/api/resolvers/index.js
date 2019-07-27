@@ -6,7 +6,7 @@ const { DateScalar } = require("../custom-types");
 
 module.exports = app => {
   return {
-    // Date: DateScalar,
+    Date: DateScalar,
 
     Query: {
       viewer(parent, args, context, info) {

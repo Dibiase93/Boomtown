@@ -6,9 +6,7 @@ import ItemGrid from "../../components/ItemGrid";
 
 const Items = ({ classes, items }) => {
   return (
-    <div className="grid-container">
-      <ItemGrid items={items} />
-    </div>
+    <div className="grid-container">{items && <ItemGrid items={items} />}</div>
   );
 };
 
