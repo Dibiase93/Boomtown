@@ -14,9 +14,7 @@ import Moment from "react-moment";
 import { typography } from "@material-ui/system";
 
 function ItemCard({ item, classes }) {
-  const { id, title, imageurl, description, itemowner, created } = item;
-  //   console.log(item);
-
+  const { title, imageurl, description, itemowner, created } = item;
   return (
     <Card>
       <CardActionArea>

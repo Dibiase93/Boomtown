@@ -9,13 +9,13 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import client from "../../apollo";
-import Button from "@material-ui/core/ButtonGroup";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
 import IconButton from "@material-ui/core/IconButton";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
 
 const ITEM_HEIGHT = 48;
 
-const MenuBar = () => {
+const MenuBar = ({ classes }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -33,32 +33,37 @@ const MenuBar = () => {
       onCompleted={() => client.resetStore()}
     >
       {logout => (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <ul className="navbar-nav mr-auto">
-            <li>
-              <Link to={"/welcome"} className="nav-link">
-                <Logo />
-              </Link>
-            </li>
-            <li>
-              <Link to={"/items"} className="nav-link">
-                Items
-              </Link>
-            </li>
+        <nav className={classes.NavBar}>
+          <Link to={"/items"} className="nav-link">
+            <Logo height="50" className={classes.LogoLink} />
+          </Link>
+
+          <ul className={classes.NavBarList}>
             <li>
               <Link to={"/share"} className="nav-link">
-                Share
+                <Fab
+                  size="large"
+                  variant="extended"
+                  aria-label="delete"
+                  className={classes.fab}
+                >
+                  <AddIcon className={classes.AddIcon} />
+                  Share Something
+                </Fab>
               </Link>
             </li>
+            <li>
+              <IconButton
+                aria-label="more"
+                aria-controls="long-menu"
+                aria-haspopup="true"
+                onClick={handleClick}
+              >
+                <MoreVertIcon />
+              </IconButton>
+            </li>
           </ul>
-          <IconButton
-            aria-label="more"
-            aria-controls="long-menu"
-            aria-haspopup="true"
-            onClick={handleClick}
-          >
-            <MoreVertIcon />
-          </IconButton>
+
           <Menu
             id="long-menu"
             anchorEl={anchorEl}
