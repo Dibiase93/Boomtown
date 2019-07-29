@@ -32,6 +32,9 @@ const styles = theme => ({
     color: "#f9a825",
     borderRadius: "25px",
     marginRight: "20px"
+  },
+  LinkItem: {
+    paddingRight: "5px"
   }
 });
 

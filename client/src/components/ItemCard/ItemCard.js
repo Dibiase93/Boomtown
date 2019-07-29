@@ -1,50 +1,65 @@
 import React, { Component } from "react";
 import Card from "@material-ui/core/Card";
-import ItemStyles from "./styles";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import { withStyles } from "@material-ui/core/styles";
-import CardActions from "@material-ui/core/CardActions";
+import Button from "@material-ui/core/Button";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Gravatar from "react-gravatar";
 import styles from "./styles";
 import Moment from "react-moment";
-import { typography } from "@material-ui/system";
+import { ViewerContext } from "../../context/ViewerProvider";
 
 function ItemCard({ item, classes }) {
-  const { title, imageurl, description, itemowner, created } = item;
+  const { title, imageurl, description, itemowner, created, tags } = item;
   return (
-    <Card>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          alt="Contemplative Reptile"
-          height="200"
-          image={imageurl}
-          title="{title}"
-        />
-        <div className={classes.UserContainer}>
-          <Gravatar
-            email={itemowner && itemowner.email}
-            size={75}
-            rating="pg"
-            default="monsterid"
-            className={classes.CustomAvatarImage}
-          />
-          <p>{itemowner && itemowner.fullname}</p>
+    <ViewerContext.Consumer>
+      {({ viewer }) => (
+        <Card width={1}>
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              alt={title}
+              height="300"
+              image={imageurl}
+              title="{title}"
+            />
+            <div className={classes.UserContainer}>
+              <Gravatar
+                email={(itemowner && itemowner.email) || viewer.email}
+                size={60}
+                rating="pg"
+                default="monsterid"
+                className={classes.CustomAvatarImage}
+              />
+              <div className={classes.UserInfo}>
+                <p className={classes.UserName}>
+                  {(itemowner && itemowner.fullname) || viewer.fullname}
+                </p>
 
-          <Moment toNow={created} />
-          {console.log(created)}
-        </div>
+                <Moment className={classes.TimePosted} toNow={created} />
+              </div>
+            </div>
 
-        <CardHeader title={title} />
-        <CardContent>
-          <Typography component="p">{description}</Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+            <CardContent className={classes.CardContent}>
+              <CardHeader className={classes.CardTitle} title={title} />
+
+              {item.tags.map(tags => {
+                return <span className={classes.Tags}>{tags.title} </span>;
+              })}
+              <Typography className={classes.Description} component="p">
+                {description}
+              </Typography>
+              <Button variant="outlined" size="medium">
+                Borrow
+              </Button>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+      )}
+    </ViewerContext.Consumer>
   );
 }
 

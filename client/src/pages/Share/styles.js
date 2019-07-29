@@ -1,3 +1,5 @@
-const styles = theme => ({});
+const styles = theme => ({
+  SharePage: {}
+});
 
 export default styles;

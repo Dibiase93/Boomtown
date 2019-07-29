@@ -1,26 +1,42 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import ItemCard from "../ItemCard";
+import styles from "./styles";
 import { withStyles } from "@material-ui/core/styles";
+import { ViewerContext } from "../../context/ViewerProvider";
 
-export default function ItemGrid({ items, classes }) {
+const ItemGrid = ({ items, classes }) => {
   return (
-    <div>
-      <Grid container justify="center" className="itemsPage" spacing={2}>
-        {items.map(item => (
+    <ViewerContext.Consumer>
+      {({ viewer }) => (
+        <div className={classes.GridContainer}>
           <Grid
-            key={item.id}
+            container
+            direction="row"
             justify="center"
-            item
-            xs={12}
-            md={6}
-            lg={4}
-            spacing={2}
+            className={classes.ItemGrid}
+            margin={0}
+            spacing={3}
           >
-            <ItemCard item={item} />
+            {items.map(item => (
+              <Grid
+                key={item.id}
+                justify="center"
+                item
+                xs={12}
+                sm={12}
+                md={6}
+                lg={4}
+                spacing={2}
+              >
+                <ItemCard item={item} />
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
-    </div>
+        </div>
+      )}
+    </ViewerContext.Consumer>
   );
-}
+};
+
+export default withStyles(styles)(ItemGrid);

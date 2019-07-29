@@ -17,6 +17,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import ListItemText from "@material-ui/core/ListItemText";
 import { ADD_ITEM_MUTATION } from "../../apollo/queries";
 import { Mutation } from "react-apollo";
+import { ViewerContext } from "../../context/ViewerProvider";
 
 import {
   updateItem,
@@ -130,7 +131,7 @@ class ShareItemForm extends Component {
           <Card>
             <CardContent>
               <Form
-                // validate={formState => this.validate(formState)}
+                validate={formState => this.validate(formState)}
                 onSubmit={values => this.saveItem(values, tags, addItem)}
                 render={({ handleSubmit, pristine, invalid }) => (
                   <form onSubmit={handleSubmit}>

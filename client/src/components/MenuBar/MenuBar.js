@@ -12,6 +12,9 @@ import client from "../../apollo";
 import IconButton from "@material-ui/core/IconButton";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
 
 const ITEM_HEIGHT = 48;
 
@@ -78,7 +81,7 @@ const MenuBar = ({ classes }) => {
             }}
           >
             <MenuItem onClick={handleClose}>
-              <Link to={"/profile"} className="nav-link">
+              <Link to={"/profile"} className={classes.LinkItem}>
                 Profile
               </Link>
             </MenuItem>
