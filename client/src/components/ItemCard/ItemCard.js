@@ -11,14 +11,16 @@ import Gravatar from "react-gravatar";
 import styles from "./styles";
 import Moment from "react-moment";
 import { ViewerContext } from "../../context/ViewerProvider";
+import { Redirect, Link } from "react-router-dom";
 
 function ItemCard({ item, classes }) {
   const { title, imageurl, description, itemowner, created, tags } = item;
+  console.log(itemowner);
   return (
     <ViewerContext.Consumer>
       {({ viewer }) => (
         <Card width={1}>
-          <CardActionArea>
+          <Link to={`/profile/${item.itemowner.id}`}>
             <CardMedia
               component="img"
               alt={title}
@@ -42,21 +44,24 @@ function ItemCard({ item, classes }) {
                 <Moment className={classes.TimePosted} toNow={created} />
               </div>
             </div>
+          </Link>
+          <CardContent className={classes.CardContent}>
+            <CardHeader className={classes.CardTitle} title={title} />
 
-            <CardContent className={classes.CardContent}>
-              <CardHeader className={classes.CardTitle} title={title} />
-
-              {item.tags.map(tags => {
-                return <span className={classes.Tags}>{tags.title} </span>;
-              })}
-              <Typography className={classes.Description} component="p">
-                {description}
-              </Typography>
-              <Button variant="outlined" size="medium">
-                Borrow
-              </Button>
-            </CardContent>
-          </CardActionArea>
+            {item.tags.map(tags => {
+              return (
+                <span key={tags.id} className={classes.Tags}>
+                  {tags.title}
+                </span>
+              );
+            })}
+            <Typography className={classes.Description} component="p">
+              {description}
+            </Typography>
+            <Button variant="outlined" size="medium">
+              Borrow
+            </Button>
+          </CardContent>
         </Card>
       )}
     </ViewerContext.Consumer>

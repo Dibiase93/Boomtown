@@ -15,10 +15,10 @@ My biggest challenge was writing functions on the pg-resource.js file which conv
 EG.
 
 ```
-const newItemTag = await postgres.query({
-text: `INSERT INTO itemtags (tagid, itemid) VALUES ${tagsQueryString([tags], itemId)}`,
-values: tagId
-});
+        const newItemTag = await postgres.query({
+        text: `INSERT INTO itemtags (tagid, itemid) VALUES ${tagsQueryString([tags], itemId)}`,
+        values: tagId
+        });
 ```
 
 ### Installation Instructions

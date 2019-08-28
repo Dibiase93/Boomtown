@@ -11,37 +11,32 @@ const Profile = ({ classes, user }) => {
   return (
     <div className={classes.UserContainer}>
       <Paper className={classes.UserCard}>
-        <div className={classes.UserContent}>
-          <div className={classes.UserNameContainer}>
-            <Gravatar
-              email={user.user.email}
-              size={60}
-              rating="pg"
-              default="monsterid"
-              className={classes.CustomAvatarImage}
-            />
-            <Typography
-              className={classes.UserName}
-              variant="h5"
-              component="h3"
-            >
-              {user.user.fullname}
-            </Typography>
-          </div>
-          <Typography component="p">
-            <span className={classes.ItemCount}>{user.user.items.length}</span>{" "}
-            Items shared and{" "}
-            <span className={classes.ItemCount}>
-              {user.user.borrowed.length}
-            </span>{" "}
-            Items borrowed
+        <div className={classes.UserNameContainer}>
+          <Gravatar
+            email={user.user.email}
+            size={60}
+            rating="pg"
+            default="monsterid"
+            className={classes.CustomAvatarImage}
+          />
+          <Typography className={classes.UserName} variant="h5" component="h3">
+            {user.user.fullname}
           </Typography>
-          <Typography className={classes.UserBio} component="p">
-            {user.user.bio}
-          </Typography>
-          {user.user.items && <ItemGrid items={user.user.items} />}
         </div>
+        <Typography component="p" className={classes.itemCountFont}>
+          <span className={classes.ItemCount}>{user.user.items.length}</span>{" "}
+          Items shared and{" "}
+          <span className={classes.ItemCount}>{user.user.borrowed.length}</span>{" "}
+          Items borrowed
+        </Typography>
+        <Typography className={classes.UserBio} component="p">
+          "{user.user.bio}"
+        </Typography>
       </Paper>
+      <div className={classes.UserContent}>
+        <Typography className={classes.sharedTitle}>Shared Items</Typography>
+        {user.user.items && <ItemGrid items={user.user.items} />}
+      </div>
     </div>
   );
 };

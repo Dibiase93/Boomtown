@@ -10,7 +10,10 @@ class ProfileContainer extends Component {
     return (
       <ViewerContext.Consumer>
         {({ viewer }) => (
-          <Query query={ALL_USER_ITEMS_QUERY} variables={{ id: viewer.id }}>
+          <Query
+            query={ALL_USER_ITEMS_QUERY}
+            variables={{ id: this.props.match.params.userid || viewer.id }}
+          >
             {({ loading, error, data }) => {
               if (loading) return "Loading...";
               if (error) return `Error! ${error.message}`;

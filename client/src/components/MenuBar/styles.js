@@ -33,8 +33,16 @@ const styles = theme => ({
     borderRadius: "25px",
     marginRight: "20px"
   },
-  LinkItem: {
-    paddingRight: "5px"
+  headerIcon: {
+    marginRight: "20px"
+  },
+  popUpNavLink: {
+    listStyle: "none",
+    flexWrap: "wrap",
+    flexDirection: "row"
+  },
+  popUpNavText: {
+    width: "50%"
   }
 });
 

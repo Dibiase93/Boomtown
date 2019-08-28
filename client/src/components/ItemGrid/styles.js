@@ -1,6 +1,6 @@
 const styles = {
   GridContainer: {
-    padding: "5%",
+    paddingTop: 0,
     backgroundColor: "#212121"
   },
   ItemGrid: {

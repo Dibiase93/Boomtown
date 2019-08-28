@@ -12,9 +12,10 @@ import client from "../../apollo";
 import IconButton from "@material-ui/core/IconButton";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
+import FingerprintIcon from "@material-ui/icons/Fingerprint";
+import PowerSettingsNew from "@material-ui/icons/PowerSettingsNew";
+import { Typography } from "@material-ui/core";
+import { ViewerContext } from "../../context/ViewerProvider";
 
 const ITEM_HEIGHT = 48;
 
@@ -67,29 +68,39 @@ const MenuBar = ({ classes }) => {
             </li>
           </ul>
 
-          <Menu
-            id="long-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={open}
-            onClose={handleClose}
-            PaperProps={{
-              style: {
-                maxHeight: ITEM_HEIGHT * 4.5,
-                width: 200
-              }
-            }}
-          >
-            <MenuItem onClick={handleClose}>
-              <Link to={"/profile"} className={classes.LinkItem}>
-                Profile
-              </Link>
-            </MenuItem>
-            <MenuItem onClick={logout}>Logout</MenuItem>
-            ))}
-          </Menu>
+          <ViewerContext.Consumer>
+            {({ viewer }) => (
+              <Menu
+                id="long-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={open}
+                onClose={handleClose}
+                PaperProps={{
+                  style: {
+                    maxHeight: ITEM_HEIGHT * 4.5,
+                    width: 200
+                  }
+                }}
+              >
+                <MenuItem onClick={handleClose}>
+                  <Link
+                    to={`/profile/${viewer.id}`}
+                    style={{ linkStyle: "none" }}
+                  >
+                    <FingerprintIcon className={classes.headerIcon} />
+                    Profile
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={logout}>
+                  <PowerSettingsNew className={classes.headerIcon} />
+                  <Typography>Logout</Typography>
+                </MenuItem>
+                ))}
+              </Menu>
+            )}
+          </ViewerContext.Consumer>
         </nav>
-        //{" "}
       )}
     </Mutation>
   );

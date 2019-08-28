@@ -15,7 +15,7 @@ import Select from "@material-ui/core/Select";
 import Typography from "@material-ui/core/Typography";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemText from "@material-ui/core/ListItemText";
-import { ADD_ITEM_MUTATION } from "../../apollo/queries";
+import { ADD_ITEM_MUTATION, ALL_ITEMS_QUERY } from "../../apollo/queries";
 import { Mutation } from "react-apollo";
 import { ViewerContext } from "../../context/ViewerProvider";
 
@@ -118,6 +118,7 @@ class ShareItemForm extends Component {
           }
         }
       });
+      // this.setState({ done: true });
     } catch (e) {
       throw new Error(e);
     }
@@ -127,6 +128,8 @@ class ShareItemForm extends Component {
     const { tags, classes, updateItem } = this.props;
     return (
       <Mutation mutation={ADD_ITEM_MUTATION}>
+        {/* refetchQueries= */}
+        {/* {() => [{ query: ALL_ITEMS_QUERY, variable: { id: ViewerContext.id } }]} */}
         {addItem => (
           <Card>
             <CardContent>
