@@ -5,7 +5,6 @@ import ItemGrid from "../../components/ItemGrid";
 import PropTypes from "prop-types";
 
 const Items = ({ classes, items }) => {
-  console.log(items);
   return (
     <div className={classes.gridContainer}>
       {items && <ItemGrid items={items} />}

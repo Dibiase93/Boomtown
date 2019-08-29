@@ -15,7 +15,6 @@ import PropTypes from "prop-types";
 
 function ItemCard({ item, classes }) {
   const { title, imageurl, description, itemowner, created } = item;
-  console.log(item);
   return (
     <ViewerContext.Consumer>
       {({ viewer }) => (
@@ -73,7 +72,7 @@ ItemCard.propTypes = {
   classes: PropTypes.object.isRequired,
   item: PropTypes.shape({
     borrower: PropTypes.object,
-    created: PropTypes.instanceOf(Date).isRequired,
+    created: PropTypes.string,
     id: PropTypes.string,
     imageurl: PropTypes.string,
     itemowner: PropTypes.object.isRequired,

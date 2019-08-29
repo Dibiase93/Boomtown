@@ -121,7 +121,6 @@ class ShareItemForm extends Component {
 
   render() {
     const { tags, classes, updateItem } = this.props;
-    console.log(tags);
     return (
       <Mutation mutation={ADD_ITEM_MUTATION}>
         {addItem => (
