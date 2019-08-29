@@ -2,10 +2,16 @@ import { NONAME } from "dns";
 
 const styles = theme => ({
   NavBar: {
-    backgroundColor: "#f9a825",
+    width: "96%",
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "center",
+    marginLeft: "auto",
+    marginRight: "auto"
+  },
+  headerContainer: {
+    backgroundColor: "#f9a825",
+    width: "100%"
   },
   NavBarList: {
     listStyle: "none",

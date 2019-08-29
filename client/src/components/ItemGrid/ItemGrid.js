@@ -13,22 +13,13 @@ const ItemGrid = ({ items, classes }) => {
           <Grid
             container
             direction="row"
-            justify="center"
+            justify="flex-start"
             className={classes.ItemGrid}
             margin={0}
             spacing={3}
           >
             {items.map(item => (
-              <Grid
-                key={item.id}
-                justify="center"
-                item
-                xs={12}
-                sm={12}
-                md={6}
-                lg={4}
-                spacing={2}
-              >
+              <Grid key={item.id} item lg={4}>
                 <ItemCard item={item} />
               </Grid>
             ))}

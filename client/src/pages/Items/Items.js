@@ -6,8 +6,10 @@ import ItemGrid from "../../components/ItemGrid";
 
 const Items = ({ classes, items }) => {
   return (
-    <div className="grid-container">{items && <ItemGrid items={items} />}</div>
+    <div className={classes.gridContainer}>
+      {items && <ItemGrid items={items} />}
+    </div>
   );
 };
 
-export default Items;
+export default withStyles(styles)(Items);

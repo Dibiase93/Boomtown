@@ -11,7 +11,7 @@ import Gravatar from "react-gravatar";
 import styles from "./styles";
 import Moment from "react-moment";
 import { ViewerContext } from "../../context/ViewerProvider";
-import { Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function ItemCard({ item, classes }) {
   const { title, imageurl, description, itemowner, created, tags } = item;

@@ -7,36 +7,43 @@ import Typography from "@material-ui/core/Typography";
 import Gravatar from "react-gravatar";
 
 const Profile = ({ classes, user }) => {
-  const { borrowed, email, fullname, items } = user;
+  const { borrowed, email, fullname, items, bio } = user;
   return (
     <div className={classes.UserContainer}>
       <Paper className={classes.UserCard}>
         <div className={classes.UserNameContainer}>
           <Gravatar
-            email={user.user.email}
+            email={email}
             size={60}
             rating="pg"
             default="monsterid"
             className={classes.CustomAvatarImage}
           />
           <Typography className={classes.UserName} variant="h5" component="h3">
-            {user.user.fullname}
+            {fullname}
           </Typography>
         </div>
         <Typography component="p" className={classes.itemCountFont}>
-          <span className={classes.ItemCount}>{user.user.items.length}</span>{" "}
-          Items shared and{" "}
-          <span className={classes.ItemCount}>{user.user.borrowed.length}</span>{" "}
-          Items borrowed
+          <span className={classes.ItemCount}>{items.length}</span> Items shared
+          and <span className={classes.ItemCount}>{borrowed.length}</span> Items
+          borrowed
         </Typography>
         <Typography className={classes.UserBio} component="p">
-          "{user.user.bio}"
+          "{bio}"
         </Typography>
       </Paper>
-      <div className={classes.UserContent}>
-        <Typography className={classes.sharedTitle}>Shared Items</Typography>
-        {user.user.items && <ItemGrid items={user.user.items} />}
-      </div>
+      {items.length > 0 ? (
+        <div className={classes.UserContent}>
+          <Typography className={classes.sharedTitle}>Shared Items</Typography>
+          <ItemGrid items={items} />
+        </div>
+      ) : (
+        <div className={classes.noItemContainer}>
+          <Typography className={classes.noItemCount}>
+            {items.length} items to display
+          </Typography>
+        </div>
+      )}
     </div>
   );
 };
