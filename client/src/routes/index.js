@@ -6,13 +6,13 @@ import ProfileContainer from "../pages/Profile";
 import ShareContainer from "../pages/Share";
 import { ViewerContext } from "../context/ViewerProvider";
 import PRoute from "../components/PrivateRoute";
-// import FullScreenLoader from "../components/FullScreenLoader";
+import Loader from "../components/FullScreenLoader";
 import MenuBar from "../components/MenuBar";
 
 export default () => (
   <ViewerContext.Consumer>
     {({ loading, viewer }) => {
-      // if (loading) return <FullScreenLoader />;
+      if (loading) return <Loader />;
       if (!viewer) {
         return (
           <Switch>

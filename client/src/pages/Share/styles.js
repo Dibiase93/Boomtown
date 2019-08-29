@@ -1,5 +1,7 @@
 const styles = theme => ({
-  SharePage: {}
+  sharePreviewContainer: {
+    padding: "100px"
+  }
 });
 
 export default styles;

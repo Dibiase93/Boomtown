@@ -16,6 +16,7 @@ import FingerprintIcon from "@material-ui/icons/Fingerprint";
 import PowerSettingsNew from "@material-ui/icons/PowerSettingsNew";
 import { Typography } from "@material-ui/core";
 import { ViewerContext } from "../../context/ViewerProvider";
+import PropTypes from "prop-types";
 
 const ITEM_HEIGHT = 48;
 
@@ -108,4 +109,7 @@ const MenuBar = ({ classes }) => {
   );
 };
 
+MenuBar.propTypes = {
+  classes: PropTypes.object.isRequired
+};
 export default withStyles(styles)(MenuBar);

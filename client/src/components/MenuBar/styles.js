@@ -1,5 +1,3 @@
-import { NONAME } from "dns";
-
 const styles = theme => ({
   NavBar: {
     width: "96%",

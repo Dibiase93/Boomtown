@@ -4,6 +4,7 @@ import ItemCard from "../ItemCard";
 import styles from "./styles";
 import { withStyles } from "@material-ui/core/styles";
 import { ViewerContext } from "../../context/ViewerProvider";
+import PropTypes from "prop-types";
 
 const ItemGrid = ({ items, classes }) => {
   return (
@@ -30,4 +31,8 @@ const ItemGrid = ({ items, classes }) => {
   );
 };
 
+ItemGrid.propTypes = {
+  classes: PropTypes.object.isRequired,
+  items: PropTypes.array.isRequired
+};
 export default withStyles(styles)(ItemGrid);

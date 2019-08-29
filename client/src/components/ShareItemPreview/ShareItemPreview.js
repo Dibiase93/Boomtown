@@ -3,11 +3,7 @@ import ItemCard from "../ItemCard/ItemCard.js";
 import { connect } from "react-redux";
 
 const ShareItemPreview = ({ shareItemPreview }) => {
-  return (
-    <div>
-      <ItemCard item={shareItemPreview} />
-    </div>
-  );
+  return shareItemPreview && <ItemCard item={shareItemPreview} />;
 };
 
 const mapStateToProps = ({ shareItemPreview }) => {

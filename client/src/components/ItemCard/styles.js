@@ -23,7 +23,8 @@ const styles = {
     marginBottom: "10px"
   },
   Tags: {
-    color: "rgba(0, 0, 0, 0.54)"
+    color: "rgba(0, 0, 0, 0.54)",
+    textTransform: "capitalize"
   },
   CardContent: {
     marginLeft: "8px"

@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
-import CardActionArea from "@material-ui/core/CardActionArea";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import CardContent from "@material-ui/core/CardContent";
@@ -12,10 +11,11 @@ import styles from "./styles";
 import Moment from "react-moment";
 import { ViewerContext } from "../../context/ViewerProvider";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 function ItemCard({ item, classes }) {
-  const { title, imageurl, description, itemowner, created, tags } = item;
-  console.log(itemowner);
+  const { title, imageurl, description, itemowner, created } = item;
+  console.log(item);
   return (
     <ViewerContext.Consumer>
       {({ viewer }) => (
@@ -48,10 +48,11 @@ function ItemCard({ item, classes }) {
           <CardContent className={classes.CardContent}>
             <CardHeader className={classes.CardTitle} title={title} />
 
-            {item.tags.map(tags => {
+            {item.tags.map((tags, index) => {
               return (
                 <span key={tags.id} className={classes.Tags}>
                   {tags.title}
+                  {index === item.tags.length - 1 ? "" : ", "}
                 </span>
               );
             })}
@@ -67,5 +68,18 @@ function ItemCard({ item, classes }) {
     </ViewerContext.Consumer>
   );
 }
+
+ItemCard.propTypes = {
+  classes: PropTypes.object.isRequired,
+  item: PropTypes.shape({
+    borrower: PropTypes.object,
+    created: PropTypes.instanceOf(Date).isRequired,
+    id: PropTypes.string,
+    imageurl: PropTypes.string,
+    itemowner: PropTypes.object.isRequired,
+    tags: PropTypes.array.isRequired,
+    title: PropTypes.string.isRequired
+  })
+};
 
 export default withStyles(styles)(ItemCard);

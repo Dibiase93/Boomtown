@@ -5,6 +5,7 @@ import ItemGrid from "../../components/ItemGrid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Gravatar from "react-gravatar";
+import PropTypes from "prop-types";
 
 const Profile = ({ classes, user }) => {
   const { borrowed, email, fullname, items, bio } = user;
@@ -46,6 +47,18 @@ const Profile = ({ classes, user }) => {
       )}
     </div>
   );
+};
+
+Profile.propTypes = {
+  classes: PropTypes.object.isRequired,
+  user: PropTypes.shape({
+    bio: PropTypes.string.isRequired,
+    borrowed: PropTypes.array.isRequired,
+    email: PropTypes.string.isRequired,
+    fullname: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    items: PropTypes.array.isRequired
+  })
 };
 
 export default withStyles(styles)(Profile);
